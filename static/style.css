@@ -1,0 +1,90 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button {
+  padding: .375rem .75rem;
+  background-color: var(--btn-color-bg);
+  cursor: pointer;
+  border-radius: 0.375rem;
+  border: 1px solid var(--btn-color-border);
+  color: var(--btn-color);
+  filter: none;
+  box-shadow: none;
+  --btn-color: #fff;
+  --btn-color-bg: #0d6efd;
+  --btn-color-border: #0d6efd;
+  --btn-color-hv: #fff;
+  --btn-color-bg-hv: #0b5ed7;
+  --btn-color-border-hv: #0a58ca;
+  --btn-color-disabled: #fff;
+  --btn-color-bg-disabled: #0d6efd;
+  --btn-color-border-disabled: #0d6efd;
+}
+
+button:disabled {
+  cursor: initial;
+  background-color: var(--btn-color-bg-disabled);
+  border: 1px solid var(--btn-color-border-disabled);
+  color: var(--btn-color-disabled);
+  opacity: 0.65;
+}
+
+button:hover {
+  background-color: var(--btn-color-bg-hv);
+  border-color: var(--btn-color-border-hv);
+  color: var(--btn-color-hv);
+}
+
+button.success {
+  --btn-color: #fff;
+  --btn-color-bg: #198754;
+  --btn-color-border: #198754;
+  --btn-color-hv: #fff;
+  --btn-color-bg-hv: #157347;
+  --btn-color-border-hv: #146c43;
+}
+
+button.danger {
+  --btn-color: #fff;
+  --btn-color-bg: #dc3545;
+  --btn-color-border: #dc3545;
+  --btn-color-hv: #fff;
+  --btn-color-bg-hv: #bb2d3b;
+  --btn-color-border-hv: #b02a37;
+}
+
+button.warning {
+  --btn-color: #000;
+  --btn-color-bg: #ffc107;
+  --btn-color-border: #ffc107;
+  --btn-color-hv: #000;
+  --btn-color-bg-hv: #ffca2c;
+  --btn-color-border-hv: #ffc720;
+}
+
+button.secondary {
+  --btn-color: #fff;
+  --btn-color-bg: #6c757d;
+  --btn-color-border: #6c757d;
+  --btn-color-hv: #fff;
+  --btn-color-bg-hv: #5c636a;
+  --btn-color-border-hv: #565e64;
+  --btn-color-disabled: #fff;
+  --btn-color-bg-disabled: #6c757d;
+  --btn-color-border-disabled: #6c757d;
+}
+
+input {
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .375rem;
+  margin: 0;
+  font-family: inherit
+}
