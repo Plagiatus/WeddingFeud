@@ -21,8 +21,8 @@ export function nextQuestion(dir: number = 1) {
     // console.log("next question", questions, currentQuestionIndex, currentState);
     gameState.visibleAnswers = [];
     gameState.currentPoints = 0;
-    gameState.teams.forEach(t => {t.mistakes = 0; t.pressed = false;});
-    gameState.questionAmount = [currentQuestionIndex , questions.length];
+    gameState.teams.forEach(t => { t.mistakes = 0; t.pressed = false; });
+    gameState.questionAmount = [currentQuestionIndex, questions.length];
     return gameState;
 };
 
@@ -43,4 +43,12 @@ export function toggleVisibility(id: number) {
 export function teamWonRound(id: number) {
     gameState.teams[id].points += gameState.currentPoints;
     gameState.currentPoints = 0;
+}
+
+export function teamPressed(id: number) {
+    let pressed: boolean = false;
+    gameState.teams.forEach((t) => pressed = pressed || !!t.pressed);
+    if (pressed) return;
+    gameState.teams[id].pressed = true;
+    setTimeout(() => { gameState.teams[id].pressed = false }, 5000);
 }

@@ -140,6 +140,7 @@
                     method="post"
                     use:enhance
                     class="team-wrapper"
+                    class:pressed={team.pressed}
                 >
                     <span class="team-name">Team {team.name}</span>
                     <span class="team-points">{team.points}</span>
@@ -232,6 +233,11 @@
         flex-direction: column;
         align-items: center;
         gap: 0.2rem;
+        border-radius: 0.375rem;
+    }
+    .pressed {
+        background-color: rgb(27, 192, 27);
+        color: #fff;
     }
     .team-points {
         display: block;

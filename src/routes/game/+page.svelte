@@ -20,10 +20,42 @@
         if (!gameState?.currentQuestion) return [];
         return gameState.currentQuestion.accumulated.slice(0, 6);
     });
+
+    let team0Key: string = $state(""),
+        team1Key: string = $state("");
+    function handleKeyDown(ev: KeyboardEvent) {
+        if (!team0Key) {
+            team0Key = ev.key;
+            return;
+        }
+        if (!team1Key) {
+            team1Key = ev.key;
+            return;
+        }
+        if (ev.key == team0Key) {
+            postRequest("/game/api/team/pressed", "id=0");
+        }
+        if (ev.key == team1Key) {
+            postRequest("/game/api/team/pressed", "id=1");
+        }
+    }
+    async function postRequest(url: string, body: string) {
+        return fetch(url, {
+            method: "POST",
+            body,
+            headers: { "Content-Type": "text/plain" },
+        });
+    }
 </script>
 
 {#if gameState}
-    <div id="game-page">
+    <div
+        id="game-page"
+        class={{
+            team0pressed: gameState.teams[0]?.pressed,
+            team1pressed: gameState.teams[1]?.pressed,
+        }}
+    >
         <div id="question-wrapper">
             {#if gameState?.currentQuestion}
                 <div id="question">
@@ -59,12 +91,25 @@
             <div class="current-points">{gameState.currentPoints}</div>
             {@render team(gameState.teams[1])}
         </div>
+        {#if !team0Key || !team1Key}
+            <div id="init-overlay">
+                <div>
+                    {#if !team0Key}
+                        Buzzer für Team Braut
+                    {:else if !team1Key}
+                        Buzzer für Team Bräutigam
+                    {/if}
+                </div>
+            </div>
+        {/if}
     </div>
 {/if}
 
+<svelte:window onkeydown={handleKeyDown} />
+
 {#snippet team(team: TeamState)}
     <div class="team-wrapper">
-        <div class="team-info">
+        <div class="team-info" class:pressed={team.pressed}>
             <span class="team-name">Team {team.name}</span>
             <span class="team-points">{team.points}</span>
         </div>
@@ -150,6 +195,9 @@
         align-items: center;
         gap: 0.2rem;
     }
+    .team-info.pressed {
+        background-color: #b87c2f;
+    }
     .team-points {
         display: block;
         font-size: 5em;
@@ -176,5 +224,18 @@
     }
     .x.hidden {
         display: none;
+    }
+
+    #init-overlay {
+        position: absolute;
+        inset: 0;
+        background-color: #00000050;
+        display: grid;
+        place-items: center;
+    }
+    #init-overlay div {
+        background-color: var(--color);
+        color: var(--highlight);
+        padding: 2rem;
     }
 </style>
