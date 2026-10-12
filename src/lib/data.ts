@@ -12,7 +12,7 @@ export function setQuestionsData(q: Question[]) {
 
 
 export function getQuestions() {
-    console.log(questions);
+    // console.log(questions);
     return questions;
 }
 
@@ -29,7 +29,6 @@ export function loadQuestionsFromFile() {
 
 export function saveQuestions() {
     fs.writeFileSync(filePath, JSON.stringify(questions));
-    console.log(questions);
 }
 
 export function addOrModifyQuestion(id: string, text: string) {
