@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { enhance } from '$app/forms';
+    import { enhance } from "$app/forms";
 
     let { data, form } = $props();
     let progress: number = $state(0);
@@ -54,9 +54,14 @@
         <button class="" onclick={() => (progress = 2)}>Los geht's!</button>
     </div>
 {:else if progress == 2}
-    <form id="questions" action="?/save" method="post" use:enhance={()=>{
-        sent = true;
-    }}>
+    <form
+        id="questions"
+        action="?/save"
+        method="post"
+        use:enhance={() => {
+            sent = true;
+        }}
+    >
         {#each data.questions as question}
             <div class="question-wrapper">
                 <span>{question.text}</span>
@@ -69,11 +74,14 @@
             </div>
         {/each}
         <div class="grow"></div>
-        {#if form}
-            <div class="message">Deine Antworten wurden gespeichert. Dankeschön!</div>
-        {/if}
         <button type="submit" disabled={sent}>Speichern</button>
     </form>
+{/if}
+{#if form}
+    <div class="message cover text-center">
+        Danke, deine Antworten wurden gespeichert. Du kannst das Fenster jetzt
+        wieder schließen.
+    </div>
 {/if}
 
 <style>
@@ -114,5 +122,8 @@
     .message {
         color: darkgreen;
         font-size: 1.25em;
+        position: absolute;
+        inset: 0;
+        background-color: white;
     }
 </style>
