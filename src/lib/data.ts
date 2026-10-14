@@ -50,6 +50,14 @@ export function addOrModifyQuestion(id: string, text: string) {
     saveQuestions();
 }
 
+export function setReplies(id: string, replies: string[]) {
+    let question = questions.find((v) => v.id === id);
+    if (!question) return;
+    question.replies = replies;
+    accumulate(question);
+    saveQuestions;
+}
+
 export function addReply(id: string, reply: string) {
     reply = reply.trim();
     if (!reply) return;
