@@ -52,3 +52,9 @@ export function teamPressed(id: number) {
     gameState.teams[id].pressed = true;
     setTimeout(() => { gameState.teams[id].pressed = false }, 5000);
 }
+
+export function teamPointsChange(id: number, points: number) {
+    let team = gameState.teams[id]
+    if (!team) return;
+    team.points = points;
+}

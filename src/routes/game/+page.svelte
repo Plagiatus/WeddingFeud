@@ -3,6 +3,7 @@
     import { enhance } from "$app/forms";
     import { onMount } from "svelte";
     import xIcon from "#lib/assets/x.svg";
+    import { postRequest } from "#lib";
 
     let data = $props();
     let gameState: GameState = $state(data.gameState);
@@ -38,13 +39,6 @@
         if (ev.key == team1Key) {
             postRequest("/game/api/team/pressed", "id=1");
         }
-    }
-    async function postRequest(url: string, body: string) {
-        return fetch(url, {
-            method: "POST",
-            body,
-            headers: { "Content-Type": "text/plain" },
-        });
     }
 </script>
 

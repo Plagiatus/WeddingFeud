@@ -1,4 +1,4 @@
-import { gameState, nextQuestion, teamPressed, teamWonRound, toggleVisibility } from '#lib/game.ts';
+import { gameState, nextQuestion, teamPointsChange, teamPressed, teamWonRound, toggleVisibility } from '#lib/game.ts';
 import type { RequestHandler } from '@sveltejs/kit';
 
 const getRequestHandlers = new Map<string, () => Response | Promise<Response>>(
@@ -15,6 +15,7 @@ const postRequestHandlers = new Map<string, (request?: any) => Response | Promis
         ["team/mistake/remove", async (request) => Response.json(await mistakeRequest(request, -1))],
         ["team/won", async (request) => Response.json(await wonRequest(request))],
         ["team/pressed", async (request) => Response.json(await pressedRequest(request))],
+        ["team/points", async (request) => Response.json(await pointsRequest(request))],
     ]
 );
 
@@ -62,6 +63,13 @@ async function pressedRequest(request: Request) {
     let id = await getIdFromRequest(request);
     if (id >= 0)
         teamPressed(id)
+    return gameState;
+}
+async function pointsRequest(request: Request) {
+    let data = await request.json();
+    if(data.id === null || data.points == null) return gameState;
+    if (data.id >= 0)
+        teamPointsChange(data.id, data.points);
     return gameState;
 }
 

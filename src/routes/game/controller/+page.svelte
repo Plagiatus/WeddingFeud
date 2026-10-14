@@ -27,6 +27,13 @@
         if (!gameState?.currentQuestion) return [];
         return gameState.currentQuestion.accumulated.slice(6);
     });
+    function updateTeamPoints(id: number, points: number) {
+        return fetch("/game/api/team/points", {
+            method: "POST",
+            body: JSON.stringify({ id, points }),
+            headers: { "Content-Type": "application/json" },
+        });
+    }
 </script>
 
 <div class="margin-container">
@@ -73,9 +80,9 @@
                             {gameState.currentQuestion.text}
                         </span>
                         {#if gameState.visibleAnswers[0]}
-                            <img src={visibilityOff} alt="" />
-                        {:else}
                             <img src={visibility} alt="" />
+                        {:else}
+                            <img src={visibilityOff} alt="" />
                         {/if}
                     </button>
                     <input type="number" value="0" name="id" hidden />
@@ -106,9 +113,9 @@
                                     >{answer.amount}</span
                                 >
                                 {#if visible}
-                                    <img src={visibilityOff} alt="" />
-                                {:else}
                                     <img src={visibility} alt="" />
+                                {:else}
+                                    <img src={visibilityOff} alt="" />
                                 {/if}
                             </button>
                         </form>
@@ -144,6 +151,18 @@
                 >
                     <span class="team-name">Team {team.name}</span>
                     <span class="team-points">{team.points}</span>
+                    <input
+                        class="team-points-edit"
+                        value={team.points}
+                        type="number"
+                        size="4"
+                        onchange={(e) => {
+                            updateTeamPoints(
+                                t,
+                                parseInt((<HTMLInputElement>e.target).value),
+                            );
+                        }}
+                    />
                     <div>
                         {#each { length: 3 } as x, i}
                             <button
@@ -242,6 +261,9 @@
     .team-points {
         display: block;
         font-size: 2em;
+    }
+    .team-points-edit {
+        width: 6em;
     }
     .x0,
     .x1,
