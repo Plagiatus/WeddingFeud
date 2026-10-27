@@ -24,8 +24,12 @@
             </div>
         </div>
         <p>Alle anderen Gäste der Hochzeit klicken bitte hier</p>
-        <button class="warning" onclick={() => (progress = 1)}
-            >Verstanden, weiter</button
+        <button
+            class="warning"
+            onclick={() => {
+                progress = 1;
+                scrollTo(0, 0);
+            }}>Verstanden, weiter</button
         >
     </div>
 {:else if progress == 1}
@@ -51,7 +55,13 @@
                 </p>
             </div>
         </div>
-        <button class="" onclick={() => (progress = 2)}>Los geht's!</button>
+        <button
+            class=""
+            onclick={() => {
+                progress = 2;
+                scrollTo(0, 0);
+            }}>Los geht's!</button
+        >
     </div>
 {:else if progress == 2}
     <form
