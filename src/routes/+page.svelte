@@ -122,7 +122,7 @@
     .message {
         color: darkgreen;
         font-size: 1.25em;
-        position: absolute;
+        position: sticky;
         inset: 0;
         background-color: white;
     }
